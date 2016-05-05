@@ -1587,9 +1587,9 @@ dnl (Thanks to XChat)
 if test "x$enable_consoleui" = "xyes" -a ! -z "$PYTHON" -a x"$PYTHON" != x"no" ; then
 	AC_MSG_CHECKING(for Python compile flags)
 	if test -f ${PYTHON}-config; then
-		PY_CFLAGS=`${PYTHON}-config --includes`
-		PY_LIBS=`${PYTHON}-config --libs`
-		AC_DEFINE(USE_PYTHON, [1], [Define if python headers are available.])
+		m4_pattern_allow([^PKG_CONFIG_SYSROOT_DIR$])
+		PY_LIBS="-L$PKG_CONFIG_SYSROOT_DIR/usr/lib/python$PY_VERSION/config -lpython$PY_VERSION"
+		PY_CFLAGS="-I$PKG_CONFIG_SYSROOT_DIR/usr/include/python$PY_VERSION"		AC_DEFINE(USE_PYTHON, [1], [Define if python headers are available.])
 		AC_MSG_RESULT(ok)
 	else
 		AC_MSG_RESULT([Cannot find ${PYTHON}-config])
